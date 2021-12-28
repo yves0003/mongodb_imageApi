@@ -1,0 +1,536 @@
+@use "sass_helper/function";
+@import "sass_helper/borderAnim";
+
+$font-size: 14px;
+$line-height: 1.5715;
+
+:root {
+  color-scheme: dark light;
+  --font-size-small: 12px;
+  --speed: 250ms;
+  --hue-brand: 196;
+  --letterSpacing: 0.04rem;
+  --letterSpacing2: 0.06rem;
+  /*============= HUE ======================*/
+
+  // --info-hue: 203;
+  --info-hue: 222;
+  --success-hue: 120;
+  --warning-hue: 40;
+  --failure-hue: 2;
+
+  /*=============== KNOBS ================*/
+  --accent-offset: 30;
+  --surface-shadow: var(--hue) 10% 20%;
+  --shadow-strength: 0.02;
+
+  --saturation-bias: 0;
+  --saturation-value: 0.5;
+  --saturation: calc(var(--saturation-value) + var(--saturation-bias));
+
+  --lightness-bias: 0;
+  --lightness-value: 0.5;
+  --lightness: calc(var(--lightness-value) + var(--lightness-bias));
+
+  /*================ BRAND =================*/
+  --hue: var(--hue-brand);
+  --light-saturation: 0.66;
+  --dark-saturation: calc(var(--light-saturation) * 0.6);
+  --light-lightness: 0.57;
+  --dark-lightness: calc(var(--light-saturation) * 0.75);
+  --brand-h: var(--hue);
+  --brand-s: calc(100% * var(--saturation));
+  --brand-l: calc(100% * var(--lightness));
+  --brand: hsl(var(--brand-h) var(--brand-s) var(--brand-l));
+
+  /*=============== INFO =================*/
+  --info-saturation-bias: 0;
+  --info-lightness-bias: 0;
+  --info-h: var(--info-hue);
+  --info-s: calc(100% * (var(--saturation) + var(--info-saturation-bias)));
+  --info-l: calc(100% * (var(--lightness) + var(--info-lightness-bias)));
+  --info: hsl(var(--info-h) var(--info-s) var(--info-l));
+
+  /*============== SUCCESS ================*/
+  --success-saturation-bias: 0;
+  --success-lightness-bias: 0;
+  --success-h: var(--success-hue);
+  --success-s: calc(
+    100% * (var(--saturation) + var(--success-saturation-bias))
+  );
+  --success-l: calc(100% * (var(--lightness) + var(--success-lightness-bias)));
+  --success: hsl(var(--success-h) var(--success-s) var(--success-l));
+
+  /*============== WARNING ================*/
+  --warning-saturation-bias: 0;
+  --warning-lightness-bias: 0;
+  --warning-h: var(--warning-hue);
+  --warning-s: calc(
+    100% * (var(--saturation) + var(--warning-saturation-bias))
+  );
+  --warning-l: calc(100% * (var(--lightness) + var(--warning-lightness-bias)));
+  --warning: hsl(var(--warning-h) var(--warning-s) var(--warning-l));
+
+  /*============== FAILURE ================*/
+  --failure-saturation-bias: 0;
+  --failure-lightness-bias: 0;
+  --failure-h: var(--failure-hue);
+  --failure-s: calc(
+    100% * (var(--saturation) + var(--failure-saturation-bias))
+  );
+  --failure-l: calc(100% * (var(--lightness) + var(--failure-lightness-bias)));
+  --failure: hsl(var(--failure-h) var(--failure-s) var(--failure-l));
+
+  /*============ PRIMARY ACCENT ==============*/
+  --primary-hue: calc(var(--hue) + 180 + var(--accent-offset));
+  --primary-fg-hsl: calc(var(--primary-hue) + 180)
+    calc(100% * var(--saturation)) calc(100% * var(--lightness));
+  --primary-bg-hsl: var(--primary-hue) calc(100% * var(--saturation))
+    calc(100% * var(--lightness));
+
+  --primary-fg: hsl(var(--primary-fg-hsl));
+  --primary-bg: hsl(var(--primary-bg-hsl));
+
+  /*=========== SECONDARY ACCENT =============*/
+  --secondary-hue: calc(var(--hue) + 180 - var(--accent-offset));
+  --secondary-fg-hsl: calc(var(--secondary-hue) + 180)
+    calc(100% * var(--saturation)) calc(100% * var(--lightness));
+  --secondary-bg-hsl: var(--secondary-hue) calc(100% * var(--saturation))
+    calc(100% * var(--lightness));
+  --secondary-fg: hsl(var(--secondary-fg-hsl));
+  --secondary-bg: hsl(var(--secondary-bg-hsl));
+
+  /*================= TEXT =================*/
+  --text-saturation: 0.2;
+  --text-bias: 0;
+  --light-text-lightness: 0.1;
+  --light-text-factor: 1;
+  --dark-text-lightness: 0.9;
+  --dark-text-factor: -1;
+
+  --text1-hsl: var(--hue) calc(100% * var(--text-saturation))
+    calc(
+      100% *
+        (
+          var(--text-lightness) + (0 * var(--text-factor) * 0.2) -
+            (var(--text-factor) * var(--text-bias))
+        )
+    );
+  --text2-hsl: var(--hue) calc(100% * (var(--text-saturation) / 2))
+    calc(
+      100% *
+        (
+          var(--text-lightness) + (1 * var(--text-factor) * 0.2) -
+            (var(--text-factor) * var(--text-bias))
+        )
+    );
+
+  --text1: hsl(var(--text1-hsl));
+  --text2: hsl(var(--text2-hsl));
+
+  /*=============== SURFACES ================*/
+  --surfaces-saturation: 0.1;
+  --surfaces-bias: 0;
+  --light-surfaces-lightness: 1; //pour modifier la force de la lumière (1 = max)
+  --light-surfaces-factor: 1;
+  --dark-surfaces-lightness: 0.12;
+  --dark-surfaces-factor: -1;
+  --surface1-hsl: var(--hue) calc(100% * var(--surfaces-saturation))
+    calc(
+      100% *
+        (
+          var(--surfaces-lightness) - (var(--surfaces-factor) * 0) +
+            (var(--surfaces-factor) * var(--surfaces-bias))
+        )
+    );
+  --surface2-hsl: var(--hue) calc(100% * var(--surfaces-saturation))
+    calc(
+      100% *
+        (
+          var(--surfaces-lightness) - (var(--surfaces-factor) * 0.05) +
+            (var(--surfaces-factor) * var(--surfaces-bias))
+        )
+    );
+  --surface3-hsl: var(--hue) calc(100% * var(--surfaces-saturation))
+    calc(
+      100% *
+        (
+          var(--surfaces-lightness) - (var(--surfaces-factor) * 0.1) +
+            (var(--surfaces-factor) * var(--surfaces-bias))
+        )
+    );
+  --surface4-hsl: var(--hue) calc(100% * var(--surfaces-saturation))
+    calc(
+      100% *
+        (
+          var(--surfaces-lightness) - (var(--surfaces-factor) * 0.15) +
+            (var(--surfaces-factor) * var(--surfaces-bias))
+        )
+    );
+
+  --surface1: hsla(var(--surface1-hsl));
+  --surface2: hsl(var(--surface2-hsl));
+  --surface3: hsl(var(--surface3-hsl));
+  --surface4: hsl(var(--surface4-hsl));
+}
+
+@media screen and (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+
+    --saturation-value: var(--light-saturation);
+    --lightness-value: var(--light-saturation);
+
+    --text-factor: var(--light-text-factor);
+    --text-lightness: var(--light-text-lightness);
+
+    --surfaces-factor: var(--light-surfaces-factor);
+    --surfaces-lightness: var(--light-surfaces-lightness);
+
+    --surface-shadow: var(--hue) 10% 20%;
+    --shadow-strength: 0.02;
+  }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --saturation-value: var(--dark-saturation);
+    --lightness-value: var(--dark-saturation);
+
+    --text-factor: var(--dark-text-factor);
+    --text-lightness: var(--dark-text-lightness);
+
+    --surfaces-factor: var(--dark-surfaces-factor);
+    --surfaces-lightness: var(--dark-surfaces-lightness);
+
+    --surface-shadow: var(--hue) 50% 3%;
+    --shadow-strength: 0.8;
+  }
+}
+
+html[color-scheme="light"] {
+  color-scheme: light;
+
+  --saturation-value: var(--light-saturation);
+  --lightness-value: var(--light-saturation);
+
+  --text-factor: var(--light-text-factor);
+  --text-lightness: var(--light-text-lightness);
+
+  --surfaces-factor: var(--light-surfaces-factor);
+  --surfaces-lightness: var(--light-surfaces-lightness);
+
+  --surface-shadow: var(--hue) 10% 20%;
+  --shadow-strength: 0.02;
+}
+
+html[color-scheme="dark"] {
+  color-scheme: dark;
+
+  --saturation-value: var(--dark-saturation);
+  --lightness-value: var(--dark-saturation);
+
+  --text-factor: var(--dark-text-factor);
+  --text-lightness: var(--dark-text-lightness);
+
+  --surfaces-factor: var(--dark-surfaces-factor);
+  --surfaces-lightness: var(--dark-surfaces-lightness);
+
+  --surface-shadow: var(--hue) 50% 3%;
+  --shadow-strength: 0.8;
+}
+
+@media screen and (prefers-contrast: more) {
+  :root {
+    --text-bias: 1;
+    --surfaces-bias: 1;
+    --saturation-bias: 1;
+  }
+}
+
+@media screen and (prefers-contrast: less) {
+  :root {
+    --text-bias: -0.1;
+    --surfaces-bias: -0.05;
+    --saturation-bias: -0.05;
+  }
+}
+
+html[contrast="more"] {
+  --text-bias: 1;
+  --surfaces-bias: 1;
+  --saturation-bias: 1;
+}
+
+html[contrast="less"] {
+  --text-bias: -0.1;
+  --surfaces-bias: -0.05;
+  --saturation-bias: -0.05;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  block-size: 100%;
+  background-color: var(--surface1);
+  color: var(--text1);
+  //width: 100vw;
+  & ::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+  & ::-webkit-scrollbar-track {
+    background-color: var(--surface3);
+  }
+  & ::-webkit-scrollbar-thumb {
+    background-color: var(--text2);
+  }
+}
+
+body {
+  font-weight: 300;
+  //width: 100vw;
+  font-feature-settings: "kern";
+  font-kerning: normal;
+  @include function.fluid-type(letter-spacing, 520px, 1366px, 1.5px, 0.8px);
+  //@include function.fluid-type(letter-spacing, 520px, 1366px, 0.75px, 0.5px);
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-ligatures: no-common-ligatures;
+  font-smooth: always;
+  font-size: $font-size;
+  //font-size: 0.8rem;
+  line-height: $line-height;
+  font-family: "Roboto", "IBM Plex Sans", system-ui, sans-serif;
+  & ::-webkit-scrollbar {
+    width: 0.15rem;
+  }
+  & ::-webkit-scrollbar-track {
+    background-color: var(--surface2);
+  }
+  & ::-webkit-scrollbar-thumb {
+    background-color: var(--surface4);
+  }
+}
+
+.fontFamily {
+  font-family: "Roboto", "IBM Plex Sans", system-ui, sans-serif;
+}
+
+main {
+}
+
+section {
+}
+
+a {
+  text-decoration: none;
+  color: var(--text1);
+  // &:hover {
+  //   cursor: pointer;
+  //   color: var(--brand);
+  // }
+  // &:active {
+  //   background-color: black;
+  // }
+  // &:visited {
+  //   background-color: #ccc;
+  // }
+  &[href^="tel:"] {
+    color: orange;
+    text-decoration: none;
+  }
+}
+//pour les grandes citations
+blockquote {
+  & p {
+    padding: 15px;
+    background: var(--surface2);
+    border-radius: 5px;
+  }
+  & p::before {
+    content: "\201C";
+  }
+  & p::after {
+    content: "\201D";
+  }
+}
+//pour les courtes citations
+q {
+}
+code {
+}
+em {
+}
+footer {
+}
+h1 {
+  @include function.fluid-font($font-size + 14px, $font-size + 24px);
+}
+h2 {
+  @include function.fluid-font($font-size + 9px, $font-size + 19px);
+}
+h3 {
+  @include function.fluid-font($font-size + 6px, $font-size + 16px);
+}
+h4 {
+  @include function.fluid-font($font-size + 4px, $font-size + 14px);
+}
+h5 {
+  @include function.fluid-font($font-size + 2px, $font-size + 12px);
+}
+h6 {
+  @include function.fluid-font($font-size + 1px, $font-size + 11px);
+}
+
+img {
+}
+li {
+}
+nav {
+}
+nav > ul {
+  display: flex;
+}
+p {
+  //max-inline-size: 70ch;
+  //font-size: 1.25rem;
+  @include function.fluid-font($font-size, $font-size + 2px);
+  //line-height: 1.5;
+}
+ol {
+}
+//permet de représenter des commentaires ou des textes à écrire en petits caractères (des termes d'un contrat, des mentions relatives au droit d'auteur, etc.)
+small {
+}
+strong {
+}
+ul {
+  list-style: none;
+}
+
+header {
+}
+
+.surface-samples > * {
+  border-radius: 1rem;
+  display: grid;
+  place-content: center;
+  font-size: 3rem;
+  font-weight: 200;
+  border: 1px solid
+    hsl(
+      var(--hue) 10% calc(50% - (100% * var(--text-factor) * var(--text-bias))) /
+        calc(15% + (100% * var(--text-bias)))
+    );
+}
+
+.info {
+  color: var(--text1);
+  background-color: var(--info);
+}
+
+.success {
+  color: var(--text1);
+  background-color: var(--success);
+}
+
+.warning {
+  color: var(--text1);
+  background-color: var(--warning);
+}
+
+.failure {
+  color: var(--text1);
+  background-color: var(--failure);
+}
+
+.brand {
+  color: var(--text1);
+  background-color: var(--brand);
+}
+
+.primary {
+  color: var(--primary-fg);
+  background-color: var(--primary-bg);
+}
+
+.secondary {
+  color: var(--secondary-fg);
+  background-color: var(--secondary-bg);
+}
+
+.surface1 {
+  background-color: var(--surface1);
+  color: var(--text2);
+}
+
+.surface2 {
+  background-color: var(--surface2);
+  color: var(--text2);
+}
+
+.surface3 {
+  background-color: var(--surface3);
+  color: var(--text1);
+}
+
+.surface4 {
+  background-color: var(--surface4);
+  color: var(--text1);
+}
+
+.text1 {
+  color: var(--text1);
+}
+
+.text2 {
+  color: var(--text2);
+}
+
+.rad-shadow {
+  box-shadow: 0 2.8px 2.2px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.03)),
+    0 6.7px 5.3px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.01)),
+    0 12.5px 10px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.02)),
+    0 22.3px 17.9px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.02)),
+    0 41.8px 33.4px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.03)),
+    0 100px 80px hsl(var(--surface-shadow) / var(--shadow-strength));
+}
+
+#hue {
+  background: linear-gradient(
+    to right,
+    var(--brand) 0%,
+    var(--brand) 50%,
+    var(--text2) 50%,
+    var(--text2) 100%
+  );
+  border: solid 1px var(--text2);
+  border-radius: 8px;
+  height: 7px;
+  width: 356px;
+  outline: none;
+  transition: background var(--speed) ease-in;
+  -webkit-appearance: none;
+}
+
+.brand-color {
+  color: var(--brand);
+}
+
+//magic border
+// label {
+//   @include magic-border(2px, blue, 0.3s, 0);
+// }

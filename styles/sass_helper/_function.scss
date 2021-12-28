@@ -1,0 +1,117 @@
+@use "sass:math";
+
+@mixin fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value) {
+  @each $property in $properties {
+    #{$property}: $min-value;
+  }
+
+  @media (min-width: $min-vw) {
+    @each $property in $properties {
+      #{$property}: calc(
+        #{$min-value} +
+          #{strip-unit($max-value - $min-value)} *
+          (100vw - #{$min-vw}) /
+          #{strip-unit($max-vw - $min-vw)}
+      );
+    }
+  }
+
+  @media (min-width: $max-vw) {
+    @each $property in $properties {
+      #{$property}: $max-value;
+    }
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return math.div($number, $number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@mixin multiple_fontFace($font, $url, $name, $listWeights) {
+  @each $listWeight in $listWeights {
+    @font-face {
+      font-family: $font;
+      font-style: normal;
+      font-weight: $listWeight;
+      @if $listWeight == 400 {
+        src: url($url + "/" + $name + "-" + "regular" + ".eot"); /* IE9 Compat Modes */
+        src: url($url + "/" + $name + "-" + "regular" + ".eot?#iefix")
+            format("embedded-opentype"),
+          /* IE6-IE8 */
+            url($url + "/" + $name + "-" + "regular" + ".woff2")
+            format("woff2"),
+          /* Super Modern Browsers */
+            url($url + "/" + $name + "-" + "regular" + ".woff")
+            format("woff"),
+          /* Modern Browsers */
+            url($url + "/" + $name + "-" + "regular" + ".ttf")
+            format("truetype"),
+          /* Safari, Android, iOS */
+            url($url + "/" + $name + "-" + "regular" + ".svg#" + $font)
+            format("svg"); /* Legacy iOS */
+      } @else {
+        src: url($url + "/" + $name + "-" + $listWeight + ".eot"); /* IE9 Compat Modes */
+        src: url($url + "/" + $name + "-" + $listWeight + ".eot?#iefix")
+            format("embedded-opentype"),
+          /* IE6-IE8 */
+            url($url + "/" + $name + "-" + $listWeight + ".woff2")
+            format("woff2"),
+          /* Super Modern Browsers */
+            url($url + "/" + $name + "-" + $listWeight + ".woff")
+            format("woff"),
+          /* Modern Browsers */
+            url($url + "/" + $name + "-" + $listWeight + ".ttf")
+            format("truetype"),
+          /* Safari, Android, iOS */
+            url($url + "/" + $name + "-" + $listWeight + ".svg#" + $font)
+            format("svg"); /* Legacy iOS */
+      }
+    }
+  }
+}
+
+@mixin fluid-font(
+  $min,
+  $max,
+  $min-vw: 576px,
+  $max-vw: 1600px,
+  $fallback: false
+) {
+  $min-no-unit: strip-units($min);
+  $max-no-unit: strip-units($max);
+  $min-vw-no-unit: strip-units($min-vw);
+  $max-vw-no-unit: strip-units($max-vw);
+
+  @if getUnit($min) == "rem" or getUnit($min) == "em" {
+    $min-no-unit: strip-units($min) * 16;
+    $max-no-unit: strip-units($max) * 16;
+  }
+
+  $responsive: calc(
+    #{$min-no-unit}px + (#{$max-no-unit} - #{$min-no-unit}) *
+      ((100vw - #{$min-vw}) / (#{$max-vw-no-unit} - #{$min-vw-no-unit}))
+  );
+
+  @if $fallback {
+    font-size: $fallback;
+  } @else {
+    font-size: $max;
+  }
+  font-size: $responsive;
+  @media screen and (max-width: #{$min-vw}) {
+    font-size: $min;
+  }
+  @media screen and (min-width: #{$max-vw}) {
+    font-size: $max;
+  }
+}
+@function strip-units($number) {
+  @return math.div($number, $number * 0 + 1);
+}
+@function getUnit($value) {
+  @return str-slice($value * 0 + "", 2, -1);
+}
