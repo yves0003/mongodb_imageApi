@@ -34,7 +34,6 @@ can imagine something like this for:
  Next.js use .env.local, replace .env.local.example by .env.local and add your
 credentials
 
-    COLLECTION_DATASTRING=XXXXX
     COLLECTION_LINKURL=XXXXXX
     DATABASE_MONGO_URL=mongodb+srv://xxxxx
     DATABASE_MONGO_NAME=database_name
