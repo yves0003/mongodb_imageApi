@@ -136,16 +136,18 @@ const Home: NextPage = () => {
             </p>
           </NOMODIF>
           <BlockImage id="idBlockImage">
-            {allImages.length !== 0
-              ? allImages.map((crypto: any, index: number) => (
-                  <ImageWrapper key={index}>
-                    <Img src={crypto.link} />
-                    <div style={{ fontWeight: "500" }}>
-                      {crypto.currency_long}
-                    </div>
-                  </ImageWrapper>
-                ))
-              : null}
+            {allImages.length !== 0 ? (
+              allImages.map((crypto: any, index: number) => (
+                <ImageWrapper key={index}>
+                  <Img src={crypto.link} />
+                  <div style={{ fontWeight: "500" }}>
+                    {crypto.currency_long}
+                  </div>
+                </ImageWrapper>
+              ))
+            ) : (
+              <div style={{ textAlign: "center" }}>Loading...........</div>
+            )}
           </BlockImage>
         </RigthSide>
       </Container>
