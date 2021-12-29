@@ -21,8 +21,6 @@ can imagine something like this for:
 
 ## Where to start
 
----
-
 ### 1. Clone the repository
 
 \
@@ -68,17 +66,15 @@ Command:
 
 ## Next
 
----
-
 If you don't want the Api, just delete the section.
 
 You can contact me on my [twitter account](https://twitter.com/yveslez) for any
 question
 
 \
-Idea: If you are a big fan of cryptocurrency, you can save these files using the
-[Permaweb - Arweave project](https://www.arweave.org/) with ArDrive :) and let the
-data available forever.
+🔥🔥 Idea: If you are a big fan of cryptocurrency, you can save these files using
+the [Permaweb - Arweave project](https://www.arweave.org/) with ArDrive :) and let
+the data available forever. 🔥🔥
 
 \
 Aurevoir, Goodbye :)
