@@ -94,7 +94,8 @@ const Home: NextPage = () => {
               autoComplete="off"
               required
             />
-            <Button type="submit">save</Button>
+            {/*<Button type="submit">save</Button>*/}
+            <Button>save</Button>
           </Form>
           <Space />
           <BottomDiv>
