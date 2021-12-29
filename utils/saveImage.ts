@@ -21,20 +21,23 @@ export const saveImage = (
         let dataImgString = "no image"
         try {
           dataImgString = await imgUrlToDataString(url)
-          const { data } = await axios({
+          setStatusSave(
+            "Save file disabled. sorry!! You can create your own :)"
+          )
+          /*const { data } = await axios({
             method: "POST",
             url: `/api/uploadImageCloudi`,
             data: { dataString: dataImgString, filename: currency, code },
             headers: {
               "Content-Type": "application/json"
             }
-          })
-          setStatusSave("Image saved")
+          })*/
+          /*setStatusSave("Image saved")
           setAllImages(prev => {
             let newList = JSON.parse(JSON.stringify(prev))
             newList.push(data.insertFile as any)
             return newList
-          })
+          })*/
         } catch (error) {
           dataImgString = "Error: " + "file does not exist"
           setStatusSave(dataImgString)
