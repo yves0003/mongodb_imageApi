@@ -1,34 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Create your own Image API
 
-## Getting Started
+This repository is a good starting point to create an Image collection where
+everyone can contribute and access it through an API.
 
-First, run the development server:
+the tools i use to create this repository are:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Next.js for the front end
+- Cloudinary to save the file (even if you can save file string directly in
+  mongoDB)
+- MongoDb to save all the links and create an API
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you want you can disabled the cloudinary part and save the image string
+directly (your choice!!!).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+For this example, i choosed to create an API for cryptocurrency logo. But you
+can imagine something like this for:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- holidays where you replace in the code the input text by an input file
+- Seminar
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Where to start
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Clone the repository
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+\
+ Go to my github account and clone.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    gh repo clone yves0003/mongodb_imageApi
 
-## Deploy on Vercel
+### 2. Modify .env.local.example
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+\
+ Next.js use .env.local, replace .env.local.example by .env.local and add your
+credentials
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    COLLECTION_DATASTRING=XXXXX
+    COLLECTION_LINKURL=XXXXXX
+    DATABASE_MONGO_URL=mongodb+srv://xxxxx
+    DATABASE_MONGO_NAME=database_name
+
+\
+ if you decide to use cloudinary (**_if not : Do not forget to modify the
+code_**)
+
+    CLOUDINARY_NAME=XXXXXX
+    CLOUDINARY_API_SECRET=XXXXXX
+    CLOUDINARY_API_KEY=XXXXXX
+
+### 3. Install all dependencies
+
+\
+Execute the command in the directoty
+
+    yarn
+
+### 4. Launch the app
+
+\
+Command:
+
+    yarn dev
+
+\
+**Enjoy!!!**
+
+## Next
+
+---
+
+If you don't want the Api, just delete the section.
+
+You can contact me on my [twitter account](https://twitter.com/yveslez) for any
+question
+
+\
+Idea: If you are a big fan of cryptocurrency, you can save these files using the
+[Permaweb - Arweave project](https://www.arweave.org/) with ArDrive :) and let the
+data available forever.
+
+\
+Aurevoir, Goodbye :)

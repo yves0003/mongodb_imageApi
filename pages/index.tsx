@@ -1,65 +1,164 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { FormEvent, useState } from "react";
-import Input from "../components/Input";
-import { hasImageExtension } from "../helpers/HasImageExtension";
-import { imgUrlToDataString } from "../helpers/ImgUrlToDataString";
-import { validURL } from "../helpers/ValidUrl";
+import type { NextPage } from "next"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import ButtonLight from "../components/ButtonToggleDarkMode"
+import * as icon from "../components/icons"
+import Input from "../components/Input"
+import ModalContainer from "../components/ModalContainer"
+import ModalDiv from "../components/ModalDiv"
+import shareLink from "../helpers/shareLink"
+import { useClickAway } from "../hooks/useClickAway"
+import { useDarkMode } from "../hooks/useDarkMode"
+import useGetImages from "../hooks/useGetImages"
+import {
+  BlockImage,
+  BottomDiv,
+  Button,
+  Container,
+  Form,
+  LeftSide,
+  RigthSide,
+  Space,
+  H2,
+  HeaderNav,
+  ImageWrapper,
+  Img
+} from "../styles/Pages"
+import { saveImage } from "../utils/saveImage"
 
-const handleSubmit = (url: string, currency: string) => {
-  return async (e: FormEvent) => {
-    e.preventDefault();
-    //verif URL
-    if (validURL(url)) {
-      if (hasImageExtension(url)) {
-        let dataImg = "no image";
-        try {
-          dataImg = await imgUrlToDataString(url);
-        } catch (error) {
-          dataImg = "error";
-        }
-
-        console.log(url, currency, "yes EXT", dataImg);
-      } else {
-        console.log(url, currency, "yes NO EXT");
-      }
-    } else {
-      console.log(url, currency, "no");
-    }
-    //transform link image in dataString
-  };
-};
 const Home: NextPage = () => {
-  const [url, setUrl] = useState("");
-  const [currency, setCurrency] = useState("");
-  return (
-    <div className="container">
-      <form onSubmit={handleSubmit(url, currency)}>
-        <Input
-          name="url"
-          label="Image Link"
-          type="text"
-          placeholder=" "
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          autoComplete="off"
-          required
-        />
-        <Input
-          name="currency"
-          label="Currency name"
-          type="text"
-          placeholder=" "
-          value={currency}
-          onChange={(e) => setCurrency(e.target.value)}
-          autoComplete="off"
-          required
-        />
-        <button type="submit">save</button>
-      </form>
-    </div>
-  );
-};
+  const [url, setUrl] = useState("")
+  const [currency, setCurrency] = useState("")
+  const [code, setCode] = useState("")
+  const [displayShare, setDisplayShare] = useState("")
+  const [statusSave, setStatusSave] = useState("")
+  let { open, setOpen, refControler, refObject } = useClickAway(false, () => {
+    setStatusSave("")
+    setDisplayShare("")
+    setUrl("")
+    setCode("")
+    setCurrency("")
+  })
+  let [statusDark, setStatusDark] = useDarkMode("", "statusDark")
+  const { data, error } = useGetImages()
+  const [allImages, setAllImages] = useState<any[]>([])
 
-export default Home;
+  useEffect(() => {
+    if (data && allImages.length === 0) {
+      setAllImages(data)
+    }
+  }, [allImages, data])
+
+  return (
+    <>
+      <Container>
+        <LeftSide>
+          <Form
+            onSubmit={saveImage(
+              url,
+              currency,
+              code,
+              setOpen,
+              setStatusSave,
+              setAllImages
+            )}
+          >
+            <Input
+              name="url"
+              label="Image Link"
+              type="text"
+              placeholder=" "
+              value={url}
+              onChange={e => setUrl(e.target.value)}
+              autoComplete="off"
+              required
+            />
+            <Input
+              name="currency"
+              label="Currency name"
+              type="text"
+              placeholder=" "
+              value={currency}
+              onChange={e => setCurrency(e.target.value)}
+              autoComplete="off"
+              required
+            />
+            <Input
+              name="currency_code"
+              label="Currency code"
+              type="text"
+              placeholder=" "
+              value={code}
+              onChange={e => setCode(e.target.value)}
+              autoComplete="off"
+              required
+            />
+            <Button type="submit">save</Button>
+          </Form>
+          <Space />
+          <BottomDiv>
+            <Link href="/api/listCryptoLogo">
+              <a target="_blank" rel="noopener noreferrer">
+                <div>API EndPoint</div>
+              </a>
+            </Link>
+
+            <div>Tutorial</div>
+          </BottomDiv>
+        </LeftSide>
+        <RigthSide className="container">
+          <HeaderNav>
+            <icon.LinkIco
+              width="1.2rem"
+              height="1.2rem"
+              onClick={shareLink(setOpen, setDisplayShare)}
+            />
+            <H2>Crypto Logo Api</H2>
+            <ButtonLight
+              className="m-3 br-4 button p-1"
+              statusDark={statusDark}
+              setStatusDark={setStatusDark}
+            />
+          </HeaderNav>
+          <div style={{ textAlign: "center", marginTop: "2rem" }}>
+            All links are available through the Api EndPoint
+          </div>
+          <div
+            style={{ textAlign: "center" }}
+          >{`(${allImages.length} logos)`}</div>
+          <BlockImage id="idBlockImage">
+            {allImages.length !== 0
+              ? allImages.map((crypto: any, index: number) => (
+                  <ImageWrapper key={index}>
+                    <Img src={crypto.link} />
+                    <div style={{ fontWeight: "500" }}>
+                      {crypto.currency_long}
+                    </div>
+                  </ImageWrapper>
+                ))
+              : null}
+          </BlockImage>
+        </RigthSide>
+      </Container>
+      <ModalContainer
+        isOpen={open}
+        closeFunc={() => {
+          setOpen(false)
+          setStatusSave("")
+          setDisplayShare("")
+          setUrl("")
+          setCode("")
+          setCurrency("")
+        }}
+        refObject={refObject}
+        refControler={refControler}
+        isBlur
+        opacityBackground={0.2}
+      >
+        <ModalDiv param={displayShare} statusSave={statusSave} />
+      </ModalContainer>
+    </>
+  )
+}
+
+export default Home

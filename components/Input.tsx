@@ -1,15 +1,15 @@
-import React, { FC, InputHTMLAttributes } from "react";
-import styled from "styled-components";
+import React, { FC, InputHTMLAttributes } from "react"
+import styled from "styled-components"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  label: string;
+  name: string
+  label: string
 }
 const InputWrapper = styled.div`
   position: relative;
-  margin: 1rem;
+  margin: 0.5rem 1rem;
   height: 3rem;
-`;
+`
 
 const FormInput = styled.input`
   position: absolute;
@@ -18,9 +18,10 @@ const FormInput = styled.input`
   font-size: inherit;
   font-family: inherit;
   background: none;
+  width: 100%;
 
-  border-radius: 0.2rem;
-  border: solid 1px var(--surface2);
+  border-radius: 0.25rem;
+  border: solid 1px var(--surface3);
   outline: none;
   padding: 0.8rem;
 
@@ -35,17 +36,18 @@ const FormInput = styled.input`
     top: -0.6rem;
     font-size: 0.8rem;
   }
-`;
+`
 const FormLabel = styled.label`
+  user-select: none;
   z-index: 1;
   position: absolute;
   left: 1rem;
   top: 0.6rem;
   cursor: text;
   transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
-  background: var(--surface1);
+  background: var(--surface2);
   padding: 0 0.5rem;
-`;
+`
 
 const Input: FC<InputProps> = ({ name, label, ...props }) => {
   return (
@@ -53,7 +55,7 @@ const Input: FC<InputProps> = ({ name, label, ...props }) => {
       <FormInput id={name} {...props} />
       <FormLabel htmlFor={name}>{label}</FormLabel>
     </InputWrapper>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input
