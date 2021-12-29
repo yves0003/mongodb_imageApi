@@ -1,6 +1,17 @@
 {
   "name": "next",
-  "private": true,
+  "private": false,
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "https://opensource.org/licenses/apache2.0.php"
+    }
+  ],
+  "author": {
+    "name": "Yves ZENDJA",
+    "email": "zendjayves@gmail.com",
+    "twitter": "https://twitter.com/yveslez"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -31,5 +42,9 @@
   },
   "resolutions": {
     "styled-components": "^5"
+  },
+  "repository": {
+    "directory": "github",
+    "url": "https://github.com/yves0003/mongodb_imageApi"
   }
 }
