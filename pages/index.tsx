@@ -134,6 +134,9 @@ const Home: NextPage = () => {
             <p>
               <b>NO MODIF ON SMALL SCREEN</b>
             </p>
+            <p>
+              <b>NO API ACCESS ON SMALL SCREEN</b>
+            </p>
           </NOMODIF>
           <BlockImage id="idBlockImage">
             {allImages.length !== 0 ? (
