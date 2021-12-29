@@ -54,7 +54,7 @@ Execute the command in the directoty
 
     yarn
 
-### 4. Launch the app
+### 4. Launch the app 🎉🎊
 
 \
 Command:
