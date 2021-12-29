@@ -47,6 +47,26 @@ code_**)
     CLOUDINARY_API_SECRET=XXXXXX
     CLOUDINARY_API_KEY=XXXXXX
 
+### 3. Remove the comment to enable Save file
+
+\
+Go in file utils/saveImage
+
+    const { data } = await axios({
+        method: "POST",
+        url: `/api/uploadImageCloudi`,
+        data: { dataString: dataImgString, filename: currency, code },
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    setStatusSave("Image saved")
+    setAllImages(prev => {
+        let newList = JSON.parse(JSON.stringify(prev))
+        newList.push(data.insertFile as any)
+        return newList
+    })
+
 ### 3. Install all dependencies
 
 \
