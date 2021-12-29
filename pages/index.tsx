@@ -22,7 +22,8 @@ import {
   H2,
   HeaderNav,
   ImageWrapper,
-  Img
+  Img,
+  NOMODIF
 } from "../styles/Pages"
 import { saveImage } from "../utils/saveImage"
 
@@ -103,7 +104,9 @@ const Home: NextPage = () => {
               </a>
             </Link>
 
-            <div>Tutorial</div>
+            <a href="https://github.com/yves0003/mongodb_imageApi">
+              <div>Tutorial</div>
+            </a>
           </BottomDiv>
         </LeftSide>
         <RigthSide className="container">
@@ -112,6 +115,7 @@ const Home: NextPage = () => {
               width="1.2rem"
               height="1.2rem"
               onClick={shareLink(setOpen, setDisplayShare)}
+              className="m-3"
             />
             <H2>Crypto Logo Api</H2>
             <ButtonLight
@@ -126,6 +130,11 @@ const Home: NextPage = () => {
           <div
             style={{ textAlign: "center" }}
           >{`(${allImages.length} logos)`}</div>
+          <NOMODIF style={{ textAlign: "center" }}>
+            <p>
+              <b>NO MODIF ON SMALL SCREEN</b>
+            </p>
+          </NOMODIF>
           <BlockImage id="idBlockImage">
             {allImages.length !== 0
               ? allImages.map((crypto: any, index: number) => (

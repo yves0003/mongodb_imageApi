@@ -1,19 +1,26 @@
 import styled from "styled-components"
 
 const Container = styled.div`
+  @media (min-width: 48rem) {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    letter-spacing: 0.9px;
+  }
   display: grid;
-  grid-template-columns: 1fr 5fr;
   letter-spacing: 0.9px;
 `
 
 const LeftSide = styled.div`
-  height: 100vh;
-  background-color: var(--surface2);
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: 0;
-  left: 0;
+  display: none;
+  @media (min-width: 48rem) {
+    height: 100vh;
+    background-color: var(--surface2);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
 `
 
 const Form = styled.form`
@@ -70,13 +77,17 @@ const H2 = styled.h2`
 const HeaderNav = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 1rem;
 `
 
 const BlockImage = styled.div`
   margin-top: 5rem;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  @media (min-width: 48rem) {
+    grid-template-columns: repeat(6, 1fr);
+  }
   gap: 2rem;
 `
 const ImageWrapper = styled.div`
@@ -85,6 +96,12 @@ const ImageWrapper = styled.div`
 
 const Img = styled.img`
   height: 4rem;
+`
+
+const NOMODIF = styled.div`
+  @media (min-width: 48rem) {
+    display: none;
+  }
 `
 
 export {
@@ -99,5 +116,6 @@ export {
   H2,
   HeaderNav,
   ImageWrapper,
-  Img
+  Img,
+  NOMODIF
 }

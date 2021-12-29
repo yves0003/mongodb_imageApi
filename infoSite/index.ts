@@ -3,8 +3,8 @@ export const infoSite = {
   title: "Mongo DB API - Example",
   description: "API Image for crypto currency logos  by Yves",
   descriptionShare: "API+Image+for+crypto+currency+logos",
-  url: "http://localhost:3000",
-  urlShare: "http%3A%2F%2Flocalhost%3A3000%2F",
+  url: "https://mongodb-image-api-7q9s6uxw4-yves0003.vercel.app/",
+  urlShare: "https%3A%2F%2Fmongodb-image-api-7q9s6uxw4-yves0003.vercel.app",
   image: "https://link/to/logo.jpg",
   bodyMail: "Mongo db Api for Crypto by Yves"
 }
