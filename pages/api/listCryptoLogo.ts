@@ -5,6 +5,9 @@ import clientPromise from "../../utils/mongodb"
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type")
+  res.setHeader("Access-Control-Allow-Methods", "GET")
   try {
     const { method } = req
     if (method !== "GET") {
